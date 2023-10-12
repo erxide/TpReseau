@@ -103,15 +103,14 @@ Durée approximative des boucles en millisecondes :
     Minimum = 12ms, Maximum = 14ms, Moyenne = 12ms
 ```
 
-> Vous pouvez éditer en GUI, et juste me montrer le contenu du fichier depuis le terminal pour le compte-rendu.
 
 ---
 
 ☀️ **Go mater une vidéo youtube et déterminer, pendant qu'elle tourne...**
 
-- l'adresse IP du serveur auquel vous êtes connectés pour regarder la vidéo
-- le port du serveur auquel vous êtes connectés
-- le port que votre PC a ouvert en local pour se connecter au port du serveur distant
+- l'adresse IP du serveur auquel vous êtes connectés pour regarder la vidéo : `Destination Address: 2606:2800:233:6a53:4ac1:3bc8:ee4e:5990`
+- le port du serveur auquel vous êtes connectés : `Destination Address : 443`
+- le port que votre PC a ouvert en local pour se connecter au port du serveur distant : `Source Port: 50612`
 
 ---
 
@@ -206,3 +205,6 @@ Faites *clean* 🧹, vous êtes des grands now :
 ![Packet sniffer](img/wireshark.jpg)
 
 > *Je sais que je vous l'ai déjà servi l'an dernier lui, mais j'aime trop ce meme hihi 🐈*
+
+
+Destination Address: 2606:2800:233:6a53:4ac1:3bc8:ee4e:5990
