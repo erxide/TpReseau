@@ -146,27 +146,27 @@ Déterminer...
 - par combien de machines vos paquets passent quand vous essayez de joindre `www.ynov.com`
 
 ```
-PS C:\Users\erwan> tracert www.ynov.com
+ PS C:\Users\erwan> tracert www.ynov.com
 
-Détermination de l’itinéraire vers www.ynov.com [2606:4700:20::ac43:4ae2]
-avec un maximum de 30 sauts :
+ Détermination de l’itinéraire vers www.ynov.com [2606:4700:20::ac43:4ae2]
+ avec un maximum de 30 sauts :
 
-  1     4 ms    11 ms     2 ms  2a01:cb1a:407a:e4e1::fe
-  2    48 ms    38 ms    36 ms  2a01:cb1a:407a:e4e1:0:56:7f9d:3a40
-  3     *        *        *     Délai d’attente de la demande dépassé.
-  4    37 ms    35 ms    31 ms  2a01:cd00:1af:101::10
-  5    42 ms    45 ms    39 ms  2a01:cd00:1af:99::49
-  6    50 ms    44 ms    32 ms  2a01:cd00:1af:99::54
-  7    57 ms    31 ms    34 ms  2a01:cd00:1af:12::62
-  8    75 ms    49 ms    39 ms  2a01:cd00:1af:13::65
-  9    43 ms    32 ms    56 ms  2a01:cfc4:1000:4000::3
- 10    58 ms    37 ms    52 ms  2a01:cfc0:200:8000:193:252:102:17
- 11    39 ms    37 ms    41 ms  2a01:cfc0:200:8000:193:252:102:7                                                                                 12    46 ms    49 ms    43 ms  2a01:cfc0:200:8000:193:252:102:8                                                                                 13     *        *        *     Délai d’attente de la demande dépassé.                                                                           14     *        *       65 ms  bundle-ether305.partr2.saint-denis.opentransit.net [2001:688:0:2::3b]
- 15    50 ms    42 ms    43 ms  2001:688:0:3:8::21c
- 16    45 ms    44 ms    40 ms  2400:cb00:19:3::
- 17    63 ms    39 ms    47 ms  2606:4700:20::ac43:4ae2
+   1     4 ms    11 ms     2 ms  2a01:cb1a:407a:e4e1::fe
+   2    48 ms    38 ms    36 ms  2a01:cb1a:407a:e4e1:0:56:7f9d:3a40
+   3     *        *        *     Délai d’attente de la demande dépassé.
+   4    37 ms    35 ms    31 ms  2a01:cd00:1af:101::10
+   5    42 ms    45 ms    39 ms  2a01:cd00:1af:99::49
+   6    50 ms    44 ms    32 ms  2a01:cd00:1af:99::54
+   7    57 ms    31 ms    34 ms  2a01:cd00:1af:12::62
+   8    75 ms    49 ms    39 ms  2a01:cd00:1af:13::65
+   9    43 ms    32 ms    56 ms  2a01:cfc4:1000:4000::3
+  10    58 ms    37 ms    52 ms  2a01:cfc0:200:8000:193:252:102:17
+  11    39 ms    37 ms    41 ms  2a01:cfc0:200:8000:193:252:102:7                                                                             12    46 ms    49 ms    43 ms  2a01:cfc0:200:8000:193:252:102:8                                                                                 13     *        *        *     Délai d’attente de la demande dépassé.                                                                           14     *        *       65 ms  bundle-ether305.partr2.saint-denis.opentransit.net [2001:688:0:2::3b]
+  15    50 ms    42 ms    43 ms  2001:688:0:3:8::21c
+  16    45 ms    44 ms    40 ms  2400:cb00:19:3::
+  17    63 ms    39 ms    47 ms  2606:4700:20::ac43:4ae2
 
-Itinéraire déterminé.
+ Itinéraire déterminé.
 ```
 
 ---
