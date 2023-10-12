@@ -118,13 +118,24 @@ Durée approximative des boucles en millisecondes :
 
 Déterminer...
 
-- à quelle adresse IP correspond le nom de domaine `www.ynov.com`
+- à quelle adresse IP correspond le nom de domaine `www.ynov.com` : 
+````
+Nom :    www.ynov.com
+Addresses:  2606:4700:20::681a:be9
+          2606:4700:20::ac43:4ae2
+          2606:4700:20::681a:ae9
+          104.26.11.233
+          104.26.10.233
+          172.67.74.226
+````
 
-> Ca s'appelle faire un "lookup DNS".
 
 - à quel nom de domaine correspond l'IP `174.43.238.89`
 
-> Ca s'appelle faire un "reverse lookup DNS".
+```
+Nom :    89.sub-174-43-238.myvzw.com
+Address:  174.43.238.89
+```
 
 ---
 
