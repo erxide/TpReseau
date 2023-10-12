@@ -87,6 +87,21 @@ Déterminer...
 
 - faites en sorte que pour votre PC, le nom `b2.hello.vous` corresponde à l'IP `1.1.1.1`
 - prouvez avec un `ping b2.hello.vous` que ça ping bien `1.1.1.1`
+```
+PS C:\Users\erwan> notepad C:\Windows\System32\drivers\etc\hosts
+PS C:\Users\erwan> ping b2.hello.vous
+
+Envoi d’une requête 'ping' sur b2.hello.vous [1.1.1.1] avec 32 octets de données :
+Réponse de 1.1.1.1 : octets=32 temps=14 ms TTL=57
+Réponse de 1.1.1.1 : octets=32 temps=12 ms TTL=57
+Réponse de 1.1.1.1 : octets=32 temps=13 ms TTL=57
+Réponse de 1.1.1.1 : octets=32 temps=12 ms TTL=57
+
+Statistiques Ping pour 1.1.1.1:
+    Paquets : envoyés = 4, reçus = 4, perdus = 0 (perte 0%),
+Durée approximative des boucles en millisecondes :
+    Minimum = 12ms, Maximum = 14ms, Moyenne = 12ms
+```
 
 > Vous pouvez éditer en GUI, et juste me montrer le contenu du fichier depuis le terminal pour le compte-rendu.
 
