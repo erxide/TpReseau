@@ -1,5 +1,6 @@
 # I :Topologie
 ### Compte-rendu
+![aaaaaaa](/img/83rub8.jpg)
 ```bash 
     [esinck@node1 ~]$ ip a
     1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
@@ -81,7 +82,7 @@ PING google.com (216.58.214.174) 56(84) bytes of data.
 4 packets transmitted, 4 received, 0% packet loss, time 3088ms
 rtt min/avg/max/mdev = 16.299/18.061/22.106/2.349 ms
 ```
-
+![tentation](/img/83rs65.png)
 # III. Services réseau
 
 ## 1. DHCP
@@ -241,4 +242,4 @@ curl site_nul.tp2
 ```
 
 
-
+![tpfiniciao](/img/83rszy.gif)
