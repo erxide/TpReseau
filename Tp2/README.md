@@ -1,6 +1,6 @@
 # I :Topologie
 ### Compte-rendu
-![aaaaaaa](/img/83rub8.jpg)
+
 ```bash 
     [esinck@node1 ~]$ ip a
     1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
@@ -33,6 +33,7 @@
     1  10.1.1.254 (10.1.1.254)  1.114 ms  1.092 ms  1.020 ms
     2  10.1.2.254 (10.1.2.254)  3142.663 ms !H  3142.635 ms !H  3142.452 ms !H
 ```
+![aaaaaaa](/img/83rub8.jpg)
 
 # II. Interlude accès internet
 ☀️ **Sur `router.tp2`**
