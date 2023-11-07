@@ -7,7 +7,7 @@ s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 s.connect((host, port))
 
-s.send(b"Meooooo !")
+s.send("Meooooo !".encode())
 
 data = s.recv(1024)
 
