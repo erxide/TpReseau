@@ -1,7 +1,7 @@
 import socket
 
 host = ""
-port = 8080
+port = 13337
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
