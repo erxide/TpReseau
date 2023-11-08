@@ -13,4 +13,4 @@ data = s.recv(1024)
 
 s.close()
 
-print(f"Le serveur a répondu: {repr(data)}")
+print(f"Le serveur a répondu: {data.decode()}")

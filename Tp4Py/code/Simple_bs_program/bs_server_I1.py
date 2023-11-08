@@ -18,7 +18,7 @@ while True:
     try:
         data = conn.recv(1024)
         if not data: break
-        print(f"Données reçues du client : {data}")
+        print(f"Données reçues du client : {data.decode()}")
         conn.sendall("Hi mate !".encode()) 
     except socket.error:
         print("Error Occured.")
