@@ -25,5 +25,5 @@ while True:
     except socket.error:
         print("Error Occured.")
         break
-S
+
 conn.close()
