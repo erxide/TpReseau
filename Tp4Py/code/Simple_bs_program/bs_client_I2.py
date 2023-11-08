@@ -20,5 +20,3 @@ except socket.error:
 
 
 s.close()
-
-print(f"Le serveur a répondu: {data.decode()}")
