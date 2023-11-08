@@ -12,6 +12,9 @@ if not os.path.exists('/var/log/bs_server'):
 
 logging.basicConfig(filename='/var/log/bs_server/bs_server.log', level=logging.DEBUG, format='%(asctime)s %(levelname)s %(message)s')
 
+logging.info(f"Démarage du serveur.")
+print("\033[255m" + "INFO" + "\033[0m", f"Démarage du serveur.")
+
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 s.bind((host, port))
