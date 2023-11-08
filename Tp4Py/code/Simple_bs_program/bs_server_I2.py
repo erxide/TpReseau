@@ -18,12 +18,12 @@ while True:
     try:
         data = conn.recv(1024)
         if not data: break
-        if "meo" in data.decode : conn.send("Meo à toi confrère.".encode())
-        elif "waf" in data.decode : conn.send("ptdr t ki".encode())
-        elif not "waf" in data.decode or not "meo" in data.decode : conn.send("Mes respects humble humain.".encode())
+        if "meo" in data.decode() : conn.send("Meo à toi confrère.".encode())
+        elif "waf" in data.decode() : conn.send("ptdr t ki".encode())
+        elif not "waf" in data.decode() or not "meo" in data.decode : conn.send("Mes respects humble humain.".encode())
 
     except socket.error:
         print("Error Occured.")
         break
-
+S
 conn.close()
