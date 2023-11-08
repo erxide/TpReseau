@@ -57,6 +57,7 @@ while True:
         conn.send(message.encode())
         logging.info(f"Réponse envoyée au client {addr} : {message}")
         print("\033[255m" + "INFO" + "\033[0m", f"Réponse envoyée au client {addr} : {message}")
+        break
 
     except socket.error:
         print("Error Occured.")
