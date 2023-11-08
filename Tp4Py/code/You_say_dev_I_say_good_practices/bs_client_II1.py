@@ -18,7 +18,7 @@ if len(argv) == 3:
         elif port >= 0 and port <= 1024 :
             print("ERROR Le port spécifié est un port privilégié. Spécifiez un port au dessus de 1024")
             exit(2)
-    if option == "-h" or option == "--help":
+    elif option == "-h" or option == "--help":
         print("Usage: python3 bs_server_II1.py [OPTION] [PORT]")
         print("Serveur qui se connecte à un serveur distant et lui envoie une donnée")
         print("Options:")
