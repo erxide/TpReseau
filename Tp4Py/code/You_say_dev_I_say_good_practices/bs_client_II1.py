@@ -6,9 +6,7 @@ host = "9.2.4.3"
 port = 13337
 patern = r"(waf|meo)"
 
-s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-
-if len(argv) == 3:
+if len(argv) >= 2:
     option = argv[1]
     if option == "-p" or option == "--port":
         port = int(argv[2])
@@ -19,13 +17,14 @@ if len(argv) == 3:
             print("ERROR Le port spécifié est un port privilégié. Spécifiez un port au dessus de 1024")
             exit(2)
     elif option == "-h" or option == "--help":
-        print("Usage: python3 bs_server_II1.py [OPTION] [PORT]")
-        print("Serveur qui se connecte à un serveur distant et lui envoie une donnée")
+        print("Usage: python3 bs_server_II1.py [OPTION]")
         print("Options:")
         print("  -h, --help\t\t\tAffiche l'aide")
-        print("  -p, --port\t\t\tPort sur lequel le serveur va se connecter")
+        print("  -p, --port\t\t\tPort sur lequel le serveur va se connecter bs_server_II1.py -p [PORT] or bs_server_II1.py --port [PORT]")
         exit(0)
 
+
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 try:
     s.connect((host, port))
