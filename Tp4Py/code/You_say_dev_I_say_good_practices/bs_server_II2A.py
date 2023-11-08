@@ -28,8 +28,8 @@ last_connection_time = time.time()
 def check_connections():
     global last_connection_time
     while True:
-        time.sleep(60)  # Attendre une minute
-        if time.time() - last_connection_time > 60:
+        time.sleep(5)  # Attendre une minute
+        if time.time() - last_connection_time > 5:
             logging.warning("Aucun client depuis plus de une minute.")
             print("\033[93m" + "WARN" + "\033[0m", "Aucun client depuis plus de une minute.")
 
