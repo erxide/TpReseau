@@ -42,6 +42,7 @@ s.listen(1)
 while True:
     
     conn , addr = s.accept()
+    last_connection_time = time.time() 
     logging.info(f'Un client {addr} vient de se co.')
     print("\033[255m" + "INFO" + "\033[0m", f"Un client {addr} vient de se co.")
 
