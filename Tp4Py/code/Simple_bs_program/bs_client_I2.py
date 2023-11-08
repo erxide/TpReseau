@@ -11,12 +11,13 @@ try:
     user_input = input("Que veux-tu envoyer au serveur : ")
     try:
         s.send(user_input.encode())
+        data = s.recv(1024)
+        print(f"Le serveur a répondu: {data.decode()}")
     except socket.error:
         print("Erreur lors de l'envoi.")
 except socket.error:
     print("La connexion a échoué.")
 
-data = s.recv(1024)
 
 s.close()
 
