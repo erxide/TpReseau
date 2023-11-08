@@ -5,11 +5,11 @@ from sys import argv
 host = "9.2.4.3"
 port = 13337
 patern = r"(waf|meo)"
-option = argv[1]
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 if len(argv) == 3:
+    option = argv[1]
     if option == "-p" or option == "--port":
         port = int(argv[2])
         if port < 0 or port > 65535:
