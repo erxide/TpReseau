@@ -1,6 +1,8 @@
 import socket
 import logging
 import os
+import time
+import threading
 
 host = "9.2.4.3"
 port = 13337
@@ -21,16 +23,28 @@ s.bind((host, port))
 logging.info(f"Le serveur tourne {host}:{port}.")
 print("\033[255m" + "INFO" + "\033[0m", f"Le serveur tourne sur {host}:{port}")
 
+last_connection_time = time.time()
+
+def check_connections():
+    global last_connection_time
+    while True:
+        time.sleep(60)  # Attendre une minute
+        if time.time() - last_connection_time > 60:
+            logging.warning("Aucun client depuis plus de une minute.")
+            print("\033[93m" + "WARN" + "\033[0m", "Aucun client depuis plus de une minute.")
+
+# Démarrer le thread de vérification des connexions
+threading.Thread(target=check_connections, daemon=True).start()
+
 s.listen(1)
 
 
-
-conn , addr = s.accept()
-logging.info(f'Un client {addr} vient de se co.')
-print("\033[255m" + "INFO" + "\033[0m", f"Un client {addr} vient de se co.")
-
 while True:
     
+    conn , addr = s.accept()
+    logging.info(f'Un client {addr} vient de se co.')
+    print("\033[255m" + "INFO" + "\033[0m", f"Un client {addr} vient de se co.")
+
     try:
         data = conn.recv(1024)
         if not data: break
