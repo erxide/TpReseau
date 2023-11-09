@@ -39,9 +39,13 @@ try:
     logging.info(f"Connexion réussie à {host}:{port}.")
     user_input = input("Que veux-tu envoyer au serveur : ")
     if type(user_input) != str:
-        raise TypeError("La donnée envoyée au serveur doit être de type str") 
+        print("\033[91m" + f"ERROR Le message envoyé au serveur doit etre une string"+ "\033[0m")
+        logging.error("La donnée envoyé n'est pas une string") #raise TypeError("La donnée envoyée au serveur doit être de type str")
+        exit(1) 
     if re.search(patern, user_input) == None:
-        raise ValueError("La donnée envoyée au serveur doit contenir le mot 'meo' ou 'waf'")
+        print("\033[91m" + f"ERROR Le message envoyé au serveur doit contenir le mot \"waf\" ou \"meo\" "+ "\033[0m") #raise ValueError("La donnée envoyée au serveur doit contenir le mot 'meo' ou 'waf'")
+        logging.error(f"Le message envoyé au serveur ne contient pas le mot \"waf\" ou \"meo\".")
+        exit(1)
     try:
         s.send(user_input.encode())
         logging.info(f"Message envoyé au serveur {host} : {user_input}")
