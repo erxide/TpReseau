@@ -52,7 +52,7 @@ while True:
         logging.info(f"Le client {addr} a envoyé: {data.decode()}")
         print("\033[255m" + "INFO" + "\033[0m", f"Le client {addr} a envoyé: {data.decode()}")
         try :
-            message = eval(data.decode())
+            message = f"{data.decode()} = {eval(data.decode())}"
         except ZeroDivisionError:
             message = "Division par zero impossible"
         conn.send(str(message).encode())
