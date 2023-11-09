@@ -55,7 +55,7 @@ while True:
             message = eval(data.decode())
         except ZeroDivisionError:
             message = "Division par zero impossible"
-        conn.send(message.encode())
+        conn.send(str(message).encode())
         logging.info(f"Réponse envoyée au client {addr} : {message}")
         print("\033[255m" + "INFO" + "\033[0m", f"Réponse envoyée au client {addr} : {message}")
         break
