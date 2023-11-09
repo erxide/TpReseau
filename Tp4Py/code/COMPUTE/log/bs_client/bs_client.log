@@ -1,0 +1,6 @@
+2023-11-09 20:00:48,672 ERROR Impossible de se connecter au serveur 9.2.4.3 sur le 13337.
+2023-11-09 20:01:09,539 ERROR Impossible de se connecter au serveur 9.2.4.3 sur le 13337.
+2023-11-09 20:01:41,639 ERROR Impossible de se connecter au serveur 9.2.4.3 sur le 8080.
+2023-11-09 20:02:42,076 INFO Connexion réussie à 9.2.4.3:13337.
+2023-11-09 20:02:49,894 INFO Message envoyé au serveur 9.2.4.3 : 9 + 5
+2023-11-09 20:02:49,895 INFO Réponse reçue du serveur 9.2.4.3 : 9 + 5 = 14

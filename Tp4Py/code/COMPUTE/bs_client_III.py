@@ -42,7 +42,7 @@ try:
     if type(user_input) != str:
         print("\033[91m" + f"ERROR Le message envoyé au serveur doit etre une string"+ "\033[0m")
         logging.error("La donnée envoyé n'est pas une string") #raise TypeError("La donnée envoyée au serveur doit être de type str")
-        exit(1) 
+        exit(1)
     if re.search(patern, user_input) == None:
         print("\033[91m" + f"ERROR Le message envoyé au serveur doit contenir un opérateur comme \"+\", \"-\", \"*\" ou \"/\"."+ "\033[0m") #raise ValueError("La donnée envoyée au serveur doit contenir le mot 'meo' ou 'waf'")
         logging.error(f"Le message envoyé au serveur ne contient pas de calcul.")

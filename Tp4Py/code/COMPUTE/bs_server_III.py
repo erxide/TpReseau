@@ -36,11 +36,12 @@ def check_connections():
 # Démarrer le thread de vérification des connexions
 threading.Thread(target=check_connections, daemon=True).start()
 
-s.listen(1)
+
 
 
 while True:
     
+    s.listen(1)
     conn , addr = s.accept()
     last_connection_time = time.time() 
     logging.info(f'Un client {addr} vient de se co.')
@@ -48,9 +49,9 @@ while True:
 
     try:
         data = conn.recv(1024)
-        if not data: break
         logging.info(f"Le client {addr} a envoyé: {data.decode()}")
         print("\033[255m" + "INFO" + "\033[0m", f"Le client {addr} a envoyé: {data.decode()}")
+        if data.decode() == "stop": break
         try :
             message = f"{data.decode()} = {eval(data.decode())}"
         except ZeroDivisionError:
@@ -58,7 +59,6 @@ while True:
         conn.send(str(message).encode())
         logging.info(f"Réponse envoyée au client {addr} : {message}")
         print("\033[255m" + "INFO" + "\033[0m", f"Réponse envoyée au client {addr} : {message}")
-        break
 
     except socket.error:
         print("Error Occured.")
