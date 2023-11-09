@@ -19,10 +19,10 @@ if len(argv) >= 2:
     if option == "-p" or option == "--port":
         port = int(argv[2])
         if port < 0 or port > 65535:
-            print("ERROR Le port spécifié n'est pas un port possible (de 0 à 65535)")
+            print("\033[91m" + "ERROR Le port spécifié n'est pas un port possible (de 0 à 65535)" + "\033[0m")
             exit(1)
         elif port >= 0 and port <= 1024 :
-            print("ERROR Le port spécifié est un port privilégié. Spécifiez un port au dessus de 1024")
+            print("\033[91m" + "ERROR Le port spécifié est un port privilégié. Spécifiez un port au dessus de 1024" + "\033[0m")
             exit(2)
     elif option == "-h" or option == "--help":
         print("Usage: python3 bs_server_II1.py [OPTION]")
