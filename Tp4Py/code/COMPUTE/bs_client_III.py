@@ -37,6 +37,7 @@ s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 try:
     s.connect((host, port))
     logging.info(f"Connexion réussie à {host}:{port}.")
+    print(f"Connexion réussie à {host}:{port}.")
     user_input = input("Que veux-tu envoyer au serveur : ")
     if type(user_input) != str:
         print("\033[91m" + f"ERROR Le message envoyé au serveur doit etre une string"+ "\033[0m")
