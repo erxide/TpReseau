@@ -12,7 +12,7 @@ if not os.path.exists('log/bs_client'):
     os.makedirs('log/bs_client')
 
 
-logging.basicConfig(filename='/var/log/bs_server/bs_client.log', level=logging.DEBUG, format='%(asctime)s %(levelname)s %(message)s')
+logging.basicConfig(filename='log/bs_server/bs_client.log', level=logging.DEBUG, format='%(asctime)s %(levelname)s %(message)s')
 
 if len(argv) >= 2:
     option = argv[1]
