@@ -6,7 +6,6 @@ class Calculatrice_Server(Encodage):
     def __init__(self):
         self.resultat : int = 0
         self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.s.settimeout(3.0)
         self.nbr_octet_total : int = 0
         self.first_int_nbr_octet : int = 0
         self.operator_nbr_octet : int = 0
