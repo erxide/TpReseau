@@ -17,7 +17,6 @@ def encode(donné):
                 continue
 
 def decode(donné):
-    types = {'str': 0, 'int': 1, 'float': 2, 'bool': 3}
-    if donné[0] == types['str']: return donné[1:].decode()
-    elif donné[0] == types['int']: return int.from_bytes(donné[1:], 'big')
+    if type(donné) == str: return donné.decode()
+    elif type(donné) == int : return int.from_bytes(donné, 'big')
     else : return int.from_bytes(donné, 'big')
