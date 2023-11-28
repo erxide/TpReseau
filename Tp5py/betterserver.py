@@ -1,7 +1,7 @@
 import socket
-from envoi import Envoi
+from encodage import Encodage 
 
-class Calculatrice_Server(Envoi):
+class Calculatrice_Server(Encodage):
     
     def __init__(self):
         self.resultat : int = 0
@@ -75,22 +75,6 @@ class Calculatrice_Server(Envoi):
         end = self.recv(1)
         if end != b'\x00': self.send(self.encode("Erreur occured")); return True
         return False
-    
-    def encode(self, donné):
-        if type(donné) == str: return donné.encode()
-        if type(donné)== int :
-            nbr_octet = 1
-            while True :
-                try : return donné.to_bytes(nbr_octet, 'big')
-                except OverflowError:
-                    nbr_octet += 1
-                    continue
-    
-    def decode_int(self, donné):
-        return int.from_bytes(donné, 'big')
-    
-    def decode_str(self, donné):
-        return donné.decode()
     
 
 if __name__ == "__main__":
