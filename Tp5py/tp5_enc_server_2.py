@@ -17,7 +17,7 @@ class Calculatrice_Server(Encodage):
         self.operator : str = ''
         self.second_int : int = 0
         self.calc : str = ''
-
+        self.s.settimeout(5.0)
 
         
 
@@ -29,10 +29,12 @@ class Calculatrice_Server(Encodage):
         return self.s.fileno() != -1
     
     def listen(self):
-        self.s.listen(1)
-        self.conn, self.addr = self.s.accept()
-        print(f"Connexion de {self.addr}.")
-
+        try :
+            self.s.listen(1)
+            self.conn, self.addr = self.s.accept()
+            print(f"Connexion de {self.addr}.")
+        except socket.timeout:
+            self.listen()
     def send(self, msg):
         if type(msg) == str: self.conn.send(self.encode(msg))
         elif type(msg) == bytes: self.conn.send(msg)
@@ -72,17 +74,19 @@ class Calculatrice_Server(Encodage):
         return self.first_int, self.operator, self.second_int, self.calc
     
     def traitement_end(self):
+        try :
             end = self.recv(1)
-            if end != b'\x00': self.send("Euuuu Erreur sur un octet"); self.close_conn(); return True; 
+            if end != b'\x00': self.send("Euuuu Erreur sur un octet"); self.close_conn(); return True;                 
             if end == '':  self.send("Euuuu Erreur sur un octet"); self.close_conn(); return True
             else : return False
-       
+        except socket.timeout:
+            self.send("Euuuu Erreur sur un octet"); self.close_conn(); return True
             
     
     def traitement(self):
         self.traitement_header()
         self.traitement_calcul()
-        if self.traitement_end(): raise ValueError("Il manque des octets")
+        if self.traitement_end(): pass
         else : return self.calc
     
 
