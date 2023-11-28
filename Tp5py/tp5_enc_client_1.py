@@ -5,6 +5,7 @@ regex = r'^\d+\s[+\-*]\s\d+$'
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.connect(('9.2.4.3', 13337))
+print(s.recv(1024).decode())
 
 
 while True:
