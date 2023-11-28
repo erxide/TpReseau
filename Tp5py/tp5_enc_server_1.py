@@ -12,11 +12,6 @@ while True:
     while True:
 
         try:
-            # On reçoit la string Hello du client
-            data = conn.recv(1024)
-            if not data: break
-
-            conn.send("Hello".encode())
 
             # On reçoit le calcul du client
             header = conn.recv(4)
