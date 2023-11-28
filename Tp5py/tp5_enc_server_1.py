@@ -15,9 +15,9 @@ while True:
 
             # On reçoit le calcul du client
             header = conn.recv(4)
-            first_int_nbr_octet = int.from_bytes(header[1], 'big')
-            operator_nbr_octet = int.from_bytes(header[2], 'big')
-            second_int_nbr_octet = int.from_bytes(header[3], 'big')
+            first_int_nbr_octet = header[1]
+            operator_nbr_octet = header[2]
+            second_int_nbr_octet = header[3]
             print(f"first_int_nbr_octet: {first_int_nbr_octet}\noperator_nbr_octet: {operator_nbr_octet}\nsecond_int_nbr_octet: {second_int_nbr_octet}")
             first_int = decode(int(conn.recv(first_int_nbr_octet)))
             operator = decode(str(conn.recv(operator_nbr_octet)))
