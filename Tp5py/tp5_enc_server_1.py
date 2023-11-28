@@ -33,9 +33,11 @@ while True:
 
             # Evaluation et envoi du résultat
             conn.send(encode(f"{calc} = {res}"))
+            conn.close()
+            break
             
         except socket.error:
             print("Error Occured.")
+            conn.close()
             break
 
-    conn.close()
