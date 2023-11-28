@@ -85,8 +85,8 @@ if __name__ == "__main__":
             srv.send(f"{calc} = {res}")
             srv.close_conn()
             continue
-        except socket.error:
-            print("Error Occured.")
+        except socket.error as e:
+            print(e)
             srv.close_conn()
             break
     srv.close_s()
