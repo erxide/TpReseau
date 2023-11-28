@@ -1,6 +1,8 @@
 import socket
+from encodage import Encodage
+from envoi import Envoi
 
-class Calculatrice:
+class Calculatrice_Server(Encodage, Envoi):
     
     def __init__(self):
         self.resultat : int = 0
@@ -32,14 +34,6 @@ class Calculatrice:
         self.conn, self.addr = self.s.accept()
         print(f"Connexion de {self.addr}.")
 
-    def send(self, msg):
-        if type(msg) == str: self.conn.send(self.encode(msg))
-        elif type(msg) == bytes: self.conn.send(msg)
-        elif type(msg) == int: self.conn.send(self.encode(msg))
-        else: self.conn.send(msg)
-
-    def recv(self, size) -> bytes:
-        return self.conn.recv(size)
     
     def close_conn(self):
         print(f"Connexion de {self.addr} fermée.")
@@ -74,26 +68,11 @@ class Calculatrice:
         end = self.recv(1)
         if end != b'\x00': self.send(self.encode("Erreur occured")); return True
         return False
-    
-    def encode(self, donné):
-        if type(donné) == str: return donné.encode()
-        if type(donné)== int :
-            nbr_octet = 1
-            while True :
-                try : return donné.to_bytes(nbr_octet, 'big')
-                except OverflowError:
-                    nbr_octet += 1
-                    continue
-    
-    def decode_int(self, donné):
-        return int.from_bytes(donné, 'big')
-    
-    def decode_str(self, donné):
-        return donné.decode()
+
     
 
 if __name__ == "__main__":
-    srv = Calculatrice()
+    srv = Calculatrice_Server()
     srv.bind('9.2.4.3', 13337)
     while srv.is_connected():
         srv.listen()
