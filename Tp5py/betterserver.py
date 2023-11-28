@@ -45,10 +45,10 @@ class Calculatrice:
         self.conn.close()
         self.s.close()
 
-    def calcul(self, calcul) -> int:
+    def calcul(self, calcul):
         return eval(calcul)
     
-    def traitement_header(self) -> str | str | str | str:
+    def traitement_header(self):
         header = self.recv(4)
         self.nbr_octet_total = header[0]
         self.first_int_nbr_octet = header[1]
@@ -56,7 +56,7 @@ class Calculatrice:
         self.second_int_nbr_octet = header[3]
         return self.nbr_octet_total, self.first_int_nbr_octet, self.operator_nbr_octet, self.second_int_nbr_octet
     
-    def traitement_calcul(self) -> str | str | str:
+    def traitement_calcul(self):
         self.first_int_octet = self.recv(self.first_int_nbr_octet)
         self.operator_octet = self.recv(self.operator_nbr_octet)
         self.second_int_octet = self.recv(self.second_int_nbr_octet)
@@ -66,7 +66,7 @@ class Calculatrice:
         self.calc = f"{self.first_int} {self.operator} {self.second_int}"
         return self.first_int, self.operator, self.second_int, self.calc
     
-    def traitement_end(self) -> bool:
+    def traitement_end(self):
         end = self.recv(1)
         if end != b'\x00': self.send(self.encode("Erreur occured")); return True
         return False
