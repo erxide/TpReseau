@@ -6,6 +6,7 @@ class Calculatrice_Server(Encodage):
     def __init__(self):
         self.resultat : int = 0
         self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.s.settimeout(3.0)
         self.nbr_octet_total : int = 0
         self.first_int_nbr_octet : int = 0
         self.operator_nbr_octet : int = 0
@@ -72,15 +73,11 @@ class Calculatrice_Server(Encodage):
         return self.first_int, self.operator, self.second_int, self.calc
     
     def traitement_end(self):
-        try :
             end = self.recv(1)
-            if end != b'\x00': return True; self.close_conn()
-            return False
-        except socket.error as e: 
-            self.send(e) 
-            print(e)
-            self.close_conn()
-            return True 
+            if end != b'\x00': self.send("Euuuu Erreur sur un octet"); self.close_conn(); return True; 
+            if end == '':  self.send("Euuuu Erreur sur un octet"); self.close_conn(); return True
+            else : return False
+       
             
     
     def traitement(self):
