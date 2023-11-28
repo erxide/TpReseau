@@ -17,6 +17,7 @@ class Calculatrice_Server(Encodage):
         self.operator : str = ''
         self.second_int : int = 0
         self.calc : str = ''
+        self.connisup : bool = False
 
         
 
@@ -27,12 +28,6 @@ class Calculatrice_Server(Encodage):
     def is_connected(self) -> bool:
         return self.s.fileno() != -1
     
-    def conn_connect(self):
-        try:
-            peername = self.conn.getpeername()
-            return True
-        except socket.error:
-            return False
     
     def listen(self):
         a = 0
@@ -75,6 +70,7 @@ class Calculatrice_Server(Encodage):
             return "Erreur de syntaxe"
         except TypeError:
             self.close_conn()
+            self.connisup = False
             return "Erreur de syntaxe"
         except OverflowError:
             return "Erreur de syntaxe"
@@ -118,13 +114,15 @@ if __name__ == "__main__":
     srv.bind('9.2.4.3', 13337)
     while srv.is_connected():
         srv.listen()
+        srv.connisup = True
         srv.send("Bienvenue sur la calculatrice !\n".encode())
-        while srv.conn_connect():
+        while srv.connisup:
             try:
                 calc = srv.traitement()
                 res = srv.calcul(calc)
                 srv.send(f"{calc} = {res}")
                 srv.close_conn()
+                srv.connisup = False
                 continue
             except socket.error as e:
                 print("Error Occured: ", e)
