@@ -72,9 +72,16 @@ class Calculatrice_Server(Encodage):
         return self.first_int, self.operator, self.second_int, self.calc
     
     def traitement_end(self):
-        end = self.recv(1)
-        if end != b'\x00': return True; self.close_conn()
-        return False
+        try :
+            end = self.recv(1)
+            if end != b'\x00': return True; self.close_conn()
+            return False
+        except socket.error as e: 
+            self.send(e) 
+            print(e)
+            self.close_conn()
+            return True 
+            
     
     def traitement(self):
         self.traitement_header()
