@@ -76,6 +76,12 @@ class Calculatrice_Server(Encodage):
         if end != b'\x00': self.send(self.encode("Erreur occured")); return True
         return False
     
+    def traitement(self):
+        self.traitement_header()
+        self.traitement_calcul()
+        if self.traitement_end(): raise socket.error
+        return self.calc
+    
 
 if __name__ == "__main__":
     srv = Calculatrice_Server()
@@ -84,16 +90,14 @@ if __name__ == "__main__":
         srv.listen()
         srv.send("Bienvenue sur la calculatrice !\n".encode())
         try:
-            nbr_octet_total, first_int_nbr_octet, operator_nbr_octet, second_int_nbr_octet = srv.traitement_header()
-            first_int, operator, second_int, calc = srv.traitement_calcul()
-            if srv.traitement_end(): break
+            calc = srv.traitement()
             res = srv.calcul(calc)
             srv.send(f"{calc} = {res}")
             srv.close_conn()
             continue
         except socket.error as e:
             print("Error Occured: ", e)
-            srv.close_conn()
-            break
+            srv.send("Error Occured : ", e)
+            continue
     srv.close_s()
 
