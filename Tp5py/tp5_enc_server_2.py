@@ -29,15 +29,16 @@ class Calculatrice_Server(Encodage):
     
     def listen(self):
         a = 0
-        try :
-            self.s.settimeout(1)
-            self.s.listen(1)
-            self.conn, self.addr = self.s.accept()
-            print(f"Connexion de {self.addr}.")
-            self.s.settimeout(None)
-        except socket.timeout:
-            a += 1
-            if a == 2 : print("Aucun client depuis plus de 10 sec."); a = 0; 
+        while True :
+            try :
+                self.s.settimeout(1)
+                self.s.listen(1)
+                self.conn, self.addr = self.s.accept()
+                print(f"Connexion de {self.addr}.")
+                self.s.settimeout(None)
+            except socket.timeout:
+                a += 1
+                if a == 2 : print("Aucun client depuis plus de 10 sec."); a = 0; 
     def send(self, msg):
         if type(msg) == str: self.conn.send(self.encode(msg))
         elif type(msg) == bytes: self.conn.send(msg)
