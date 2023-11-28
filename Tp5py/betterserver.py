@@ -91,7 +91,8 @@ class Calculatrice:
 if __name__ == "__main__":
     srv = Calculatrice()
     srv.bind('9.2.4.3', 13337)
-    while srv.is_connected():
+    print(srv.is_connected())
+    while True:
         srv.listen()
         srv.send("Bienvenue sur la calculatrice !\n".encode())
         try:
@@ -106,4 +107,5 @@ if __name__ == "__main__":
             print("Error Occured.")
             srv.close()
             break
+    print(srv.is_connected())
 
