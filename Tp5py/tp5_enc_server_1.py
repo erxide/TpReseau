@@ -5,27 +5,27 @@ s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 s.bind(('9.2.4.3', 13337))  
 
-s.listen(1)
-conn, addr = s.accept()
-
 while True:
+    s.listen(1)
+    conn, addr = s.accept()
 
-    try:
-        # On reçoit la string Hello du client
-        data = conn.recv(1024)
-        if not data: break
-        print(f"Données reçues du client : {data}")
+    while True:
 
-        conn.send("Hello".encode())
+        try:
+            # On reçoit la string Hello du client
+            data = conn.recv(1024)
+            if not data: break
 
-        # On reçoit le calcul du client
-        data = conn.recv(1024)
+            conn.send("Hello".encode())
 
-        # Evaluation et envoi du résultat
-        conn.send(encode(f"OUAIS OUAIS OUAIS {data.decode()}"))
-         
-    except socket.error:
-        print("Error Occured.")
-        break
+            # On reçoit le calcul du client
+            data = conn.recv(1024)
+
+            # Evaluation et envoi du résultat
+            conn.send(encode(f"OUAIS OUAIS OUAIS {data.decode()}"))
+            
+        except socket.error:
+            print("Error Occured.")
+            break
 
 conn.close()
