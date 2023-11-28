@@ -10,8 +10,9 @@ s.bind((host, port))
 s.listen(5)
 
 conn, addr = s.accept()
+print(f"Connexion de {addr}.")
 
-data = conn.recv(1)
+data = conn.recv(1024)
 
 print(data)
 
