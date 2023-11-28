@@ -29,11 +29,14 @@ class Calculatrice_Server(Encodage):
         return self.s.fileno() != -1
     
     def listen(self):
+        a = 0
         try :
             self.s.listen(1)
             self.conn, self.addr = self.s.accept()
             print(f"Connexion de {self.addr}.")
         except socket.timeout:
+            a += 1
+            if a == 2 : print("Aucun client depuis plus de 10 sec."); a = 0
             self.listen()
     def send(self, msg):
         if type(msg) == str: self.conn.send(self.encode(msg))
