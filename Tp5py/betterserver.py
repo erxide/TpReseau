@@ -41,8 +41,10 @@ class Calculatrice:
     def recv(self, size) -> bytes:
         return self.conn.recv(size)
     
-    def close(self):
+    def close_conn(self):
         self.conn.close()
+    
+    def close_s(self):
         self.s.close()
 
     def calcul(self, calcul):
@@ -91,8 +93,7 @@ class Calculatrice:
 if __name__ == "__main__":
     srv = Calculatrice()
     srv.bind('9.2.4.3', 13337)
-    print(srv.is_connected())
-    while True:
+    while srv.is_connected():
         srv.listen()
         srv.send("Bienvenue sur la calculatrice !\n".encode())
         try:
@@ -101,11 +102,11 @@ if __name__ == "__main__":
             if srv.traitement_end(): break
             res = srv.calcul(calc)
             srv.send(f"{calc} = {res}\n")
-            srv.close()
+            srv.close_conn()
             break
         except socket.error:
             print("Error Occured.")
-            srv.close()
+            srv.close_conn()
             break
-    print(srv.is_connected())
+    srv.close_s()
 
