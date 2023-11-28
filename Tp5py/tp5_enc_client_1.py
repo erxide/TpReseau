@@ -19,10 +19,12 @@ while True:
     if int(msgtab[0]) > 4294967295 or int(msgtab[2]) > 4294967295: print("Nombres trop grand"); continue
     else: break
 
-header = len(msg).to_bytes(4, byteorder='big')
+header =len(encode(msg)).to_bytes(1, byteorder='big') + len(encode(int(msgtab[0]))).to_bytes(1, byteorder='big')+ len(encode(str(msgtab[1]))).to_bytes(1, byteorder='big') + len(encode(int(msgtab[2]))).to_bytes(1, byteorder='big')
 
+msg = encode(int(msgtab[0])) + encode(str(msgtab[1])) + encode(int(msgtab[2]))
 
-payload = header + encode(msg) + encode(0)
+payload = header + msg + encode(0)
+print(payload)
 
 
 s.send(payload)

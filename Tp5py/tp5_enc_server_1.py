@@ -19,14 +19,20 @@ while True:
             conn.send("Hello".encode())
 
             # On reçoit le calcul du client
-            len_next_msg = conn.recv(4)
-            next_msg = conn.recv(int.from_bytes(len_next_msg, byteorder='big'))
+            header = conn.recv(4)
+            first_int_nbr_octet = int.from_bytes(header[2], byteorder='big')
+            operator_nbr_octet = int.from_bytes(header[3], byteorder='big')
+            second_int_nbr_octet = int.from_bytes(header[4], byteorder='big')
+            first_int = decode(int(conn.recv(first_int_nbr_octet)))
+            operator = decode(str(conn.recv(operator_nbr_octet)))
+            second_int = decode(int(conn.recv(second_int_nbr_octet)))
+            calc = f"{first_int} {operator} {second_int}"
             end = conn.recv(1)
             if end != b'\x00': conn.send("error occured".encode()); break
-            res = eval(next_msg.decode())
+            res = eval(calc)
 
             # Evaluation et envoi du résultat
-            conn.send(encode(f"{next_msg.decode()} = {res}"))
+            conn.send(encode(f"{calc} = {res}"))
             
         except socket.error:
             print("Error Occured.")
