@@ -101,7 +101,7 @@ if __name__ == "__main__":
             first_int, operator, second_int, calc = srv.traitement_calcul()
             if srv.traitement_end(): break
             res = srv.calcul(calc)
-            srv.send(f"{calc} = {res}\n")
+            srv.send(f"{calc} = {res}")
             srv.close_conn()
             break
         except socket.error:
