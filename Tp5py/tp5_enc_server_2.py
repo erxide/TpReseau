@@ -88,16 +88,20 @@ class Calculatrice_Server(Encodage):
                 self.close_conn()
                 return True
 
-            if end != b'\x00':
-                # Erreur sur un octet
-                self.send("Euuuu Erreur sur un octet")
+            # Attendez un court moment pour le dernier octet
+            self.s.settimeout(0.1)
+            last_byte = self.recv(1)
+
+            if last_byte != b'\x00':
+                # Erreur sur le dernier octet
+                self.send("Euuuu Erreur sur le dernier octet")
                 self.close_conn()
                 return True
 
             return False
         except socket.timeout:
-            # Timeout pour la réception de l'octet de fin
-            self.send("Euuuu Timeout sur l'octet de fin")
+            # Timeout pour la réception du dernier octet
+            self.send("Euuuu Timeout sur le dernier octet")
             return True
         finally:
             self.s.settimeout(None)
