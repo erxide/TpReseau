@@ -19,10 +19,14 @@ while True:
             conn.send("Hello".encode())
 
             # On reçoit le calcul du client
-            data = conn.recv(1024)
+            len_next_msg = conn.recv(4)
+            next_msg = conn.recv(int.from_bytes(len_next_msg, byteorder='big'))
+            end = conn.recv(1)
+            if end != b'\x00': conn.send("error occured".encode()); break
+            res = eval(next_msg.decode())
 
             # Evaluation et envoi du résultat
-            conn.send(encode(f"OUAIS OUAIS OUAIS {data.decode()}"))
+            conn.send(encode(f"{next_msg.decode()} = {res}"))
             
         except socket.error:
             print("Error Occured.")

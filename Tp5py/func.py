@@ -15,3 +15,9 @@ def encode(donné):
             except OverflowError:
                 nbr_octet += 1
                 continue
+
+def decode(donné):
+    types = {'str': 0, 'int': 1, 'float': 2, 'bool': 3}
+    if donné[0] == types['str']: return donné[1:].decode()
+    elif donné[0] == types['int']: return int.from_bytes(donné[1:], 'big')
+    else : return int.from_bytes(donné, 'big')
