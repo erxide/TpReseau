@@ -1,4 +1,5 @@
 import socket
+from test import encode, decode, byte_len
 
 host = "9.2.4.3"
 port = 13337
@@ -13,9 +14,9 @@ try :
     conn, addr = s.accept()
     print(f"Connexion de {addr}.")
 
-    data = conn.recv(1024)
-
-    print(data)
+    len_msg = decode(conn.recv(1))
+    msg = conn.recv(decode(len_msg))
+    print(msg)
 except socket.error:
     print(socket.error)
     exit(1)
