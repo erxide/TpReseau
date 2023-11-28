@@ -1,6 +1,6 @@
 import socket
 from encodage import Encodage
-from func import testregex
+import re
 
 class Calculatrice_Client(Encodage):
 
@@ -28,10 +28,13 @@ class Calculatrice_Client(Encodage):
         while True:
             self.content = input("Calcul à envoyer: ")
             if self.content == "stop": self.close(); exit(0)
-            if not testregex(self.regex, self.content): print("format invalide ou mauvais operateur( ex: 1 + 1 )"); continue
+            if not self.testregex(self.regex, self.content): print("format invalide ou mauvais operateur( ex: 1 + 1 )"); continue
             self.contenttab = self.content.split()
             if int(self.contenttab[0]) > 4294967295 or int(self.contenttab[2]) > 4294967295: print("Nombres trop grand"); continue
             else: break
+        
+    def testregex(self, regex, string):
+        return re.match(regex, string) is not None
     
     def create_header(self):
         return self.encode(len(self.encode(self.content))) + self.encode(len(self.encode(int(self.contenttab[0])))) + self.encode(len(self.encode(str(self.contenttab[1])))) + self.encode(len(self.encode(int(self.contenttab[2]))))
