@@ -27,6 +27,13 @@ class Calculatrice_Server(Encodage):
     def is_connected(self) -> bool:
         return self.s.fileno() != -1
     
+    def conn_connect(self):
+        try:
+            peername = self.conn.getpeername()
+            return True
+        except socket.error:
+            return False
+    
     def listen(self):
         a = 0
         self.s.settimeout(5.0)
@@ -112,15 +119,17 @@ if __name__ == "__main__":
     while srv.is_connected():
         srv.listen()
         srv.send("Bienvenue sur la calculatrice !\n".encode())
-        try:
-            calc = srv.traitement()
-            res = srv.calcul(calc)
-            srv.send(f"{calc} = {res}")
-            srv.close_conn()
-            continue
-        except socket.error as e:
-            print("Error Occured: ", e)
-            srv.send("Error Occured : ", e)
-            continue
+        while srv.conn_connect():
+            try:
+                calc = srv.traitement()
+                res = srv.calcul(calc)
+                srv.send(f"{calc} = {res}")
+                srv.close_conn()
+                continue
+            except socket.error as e:
+                print("Error Occured: ", e)
+                srv.send("Error Occured : ", e)
+                continue
+        print("Client déconnecté.")
     srv.close_s()
 
