@@ -73,7 +73,7 @@ class Calculatrice_Server(Encodage):
     
     def traitement_end(self):
         end = self.recv(1)
-        if end != b'\x00': return True
+        if end != b'\x00': return True; self.close_conn()
         return False
     
     def traitement(self):
