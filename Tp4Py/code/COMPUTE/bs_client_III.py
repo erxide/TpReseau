@@ -6,7 +6,7 @@ import os
 
 host = "9.2.4.3"
 port = 13337
-patern = r"^(-?\d{1,5})\s([+-])\s*(-?\d{1,5})$"
+patern = r"[+\-*/]"
 
 if not os.path.exists('log/bs_client'):
     os.makedirs('log/bs_client')
