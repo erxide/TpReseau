@@ -79,8 +79,8 @@ class Calculatrice_Server(Encodage):
     def traitement(self):
         self.traitement_header()
         self.traitement_calcul()
-        if self.traitement_end(): raise socket.error
-        return self.calc
+        if self.traitement_end(): raise ValueError("Il manque des octets")
+        else : return self.calc
     
 
 if __name__ == "__main__":
