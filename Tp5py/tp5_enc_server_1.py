@@ -3,7 +3,7 @@ from func import *
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-s.bind(('127.0.0.1', 9999))  
+s.bind(('9.2.4.3', 13337))  
 
 s.listen(1)
 conn, addr = s.accept()

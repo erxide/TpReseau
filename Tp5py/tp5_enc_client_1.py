@@ -4,7 +4,7 @@ from func import *
 regex = r'^\d+\s[+\-*]\s\d+$'
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-s.connect(('127.0.0.1', 9999))
+s.connect(('9.2.4.3', 13337))
 s.send('Hello'.encode())
 
 # On reçoit la string Hello
