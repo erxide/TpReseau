@@ -31,11 +31,12 @@ class Calculatrice_Server(Encodage):
         a = 0
         while True :
             try :
-                self.s.settimeout(1)
+                self.s.settimeout(10)
                 self.s.listen(1)
                 self.conn, self.addr = self.s.accept()
                 print(f"Connexion de {self.addr}.")
                 self.s.settimeout(None)
+                break
             except socket.timeout:
                 a += 1
                 if a == 2 : print("Aucun client depuis plus de 10 sec."); a = 0; 
