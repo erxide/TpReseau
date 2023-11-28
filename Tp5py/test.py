@@ -24,6 +24,8 @@ if __name__ == '__main__':
     donné = 'Hello World'
     print(byte_len(encode(donné)))
     print(decode(byte_len(encode(donné))))
+    print(encode(donné))
+    print(decode(encode(donné)))
     
 
 

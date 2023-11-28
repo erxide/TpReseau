@@ -16,7 +16,7 @@ try :
 
     len_msg = decode(conn.recv(1))
     msg = conn.recv(int(decode(len_msg)))
-    print(msg)
+    print(decode(msg))
 except socket.error:
     print(socket.error)
     exit(1)
