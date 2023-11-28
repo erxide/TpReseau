@@ -33,6 +33,14 @@ class Calculatrice_Server(Envoi):
         self.conn, self.addr = self.s.accept()
         print(f"Connexion de {self.addr}.")
 
+    def send(self, msg):
+        if type(msg) == str: self.conn.send(self.encode(msg))
+        elif type(msg) == bytes: self.conn.send(msg)
+        elif type(msg) == int: self.conn.send(self.encode(msg))
+        else: self.conn.send(msg)
+
+    def recv(self, size) -> bytes:
+        return self.conn.recv(size)
     
     def close_conn(self):
         print(f"Connexion de {self.addr} fermée.")
