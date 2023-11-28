@@ -12,7 +12,7 @@ def encode(donné):
                 continue
 
 def byte_len(donné):
-    return len(encode(donné)).to_bytes(1, 'big')
+    return len(donné).to_bytes(1, 'big')
 
 def decode(donné):
     types = {'str': 0, 'int': 1, 'float': 2, 'bool': 3}
@@ -25,7 +25,7 @@ if __name__ == '__main__':
     m = encode(donné)
     print(m)
     print(decode(m))
-    print(byte_len(donné))
+    print(byte_len(encode(donné)))
 
 
 
