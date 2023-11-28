@@ -22,7 +22,7 @@ while True:
 header = len(msg).to_bytes(4, byteorder='big')
 
 
-payload = header + encode(msg) + 0 
+payload = header + encode(msg) + encode(0)
 
 
 s.send(payload)
