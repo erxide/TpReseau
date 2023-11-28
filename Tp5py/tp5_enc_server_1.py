@@ -23,10 +23,12 @@ while True:
             first_int_nbr_octet = int.from_bytes(header[2], byteorder='big')
             operator_nbr_octet = int.from_bytes(header[3], byteorder='big')
             second_int_nbr_octet = int.from_bytes(header[4], byteorder='big')
+            print(f"first_int_nbr_octet: {first_int_nbr_octet}\noperator_nbr_octet: {operator_nbr_octet}\nsecond_int_nbr_octet: {second_int_nbr_octet}")
             first_int = decode(int(conn.recv(first_int_nbr_octet)))
             operator = decode(str(conn.recv(operator_nbr_octet)))
             second_int = decode(int(conn.recv(second_int_nbr_octet)))
             calc = f"{first_int} {operator} {second_int}"
+            print(calc)
             end = conn.recv(1)
             if end != b'\x00': conn.send("error occured".encode()); break
             res = eval(calc)
