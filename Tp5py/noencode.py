@@ -14,7 +14,7 @@ try :
     conn, addr = s.accept()
     print(f"Connexion de {addr}.")
     len_msg = conn.recv(1)
-    msg = conn.recv(decode(len_msg))
+    msg = conn.recv(decode(len_msg)-1)
     print(decode(msg))
 except socket.error:
     print(socket.error)
