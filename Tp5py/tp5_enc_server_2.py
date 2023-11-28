@@ -17,7 +17,7 @@ class Calculatrice_Server(Encodage):
         self.operator : str = ''
         self.second_int : int = 0
         self.calc : str = ''
-        self.s.settimeout(5.0)
+        self.s.settimeout(1.0)
 
         
 
