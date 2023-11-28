@@ -61,12 +61,15 @@ class Calculatrice_Server(Encodage):
         return eval(calcul)
     
     def traitement_header(self):
-        header = self.recv(4)
-        self.nbr_octet_total = header[0]
-        self.first_int_nbr_octet = header[1]
-        self.operator_nbr_octet = header[2]
-        self.second_int_nbr_octet = header[3]
-        return self.nbr_octet_total, self.first_int_nbr_octet, self.operator_nbr_octet, self.second_int_nbr_octet
+        try :
+            header = self.recv(4)
+            self.nbr_octet_total = header[0]
+            self.first_int_nbr_octet = header[1]
+            self.operator_nbr_octet = header[2]
+            self.second_int_nbr_octet = header[3]
+            return self.nbr_octet_total, self.first_int_nbr_octet, self.operator_nbr_octet, self.second_int_nbr_octet
+        except IndexError:
+            print("Erreur occured")
     
     def traitement_calcul(self):
         self.first_int_octet = self.recv(self.first_int_nbr_octet)
@@ -79,38 +82,15 @@ class Calculatrice_Server(Encodage):
         return self.first_int, self.operator, self.second_int, self.calc
     
     def traitement_end(self):
-        self.s.settimeout(0.1)
-        try:
-            end = self.recv(1)
-            if not end:
-                # Aucune donnée reçue pour la fin du traitement
-                self.send("Aucune donnée reçue pour la fin du traitement.")
-                self.close_conn()
-                return True
-
-            # Attendez un court moment pour le dernier octet
-            self.s.settimeout(0.1)
-            last_byte = self.recv(1)
-
-            if last_byte != b'\x00':
-                # Erreur sur le dernier octet
-                self.send("Euuuu Erreur sur le dernier octet")
-                self.close_conn()
-                return True
-
-            return False
-        except socket.timeout:
-            # Timeout pour la réception du dernier octet
-            self.send("Euuuu Timeout sur le dernier octet")
-            return True
-        finally:
-            self.s.settimeout(None)
+        end = self.recv(1)
+        if end != b'\x00': self.send(self.encode("Erreur occured")); return True
+        return False
             
     
     def traitement(self):
         self.traitement_header()
         self.traitement_calcul()
-        if self.traitement_end(): pass
+        if self.traitement_end(): print("Erreur occured")
         else : return self.calc
     
 
