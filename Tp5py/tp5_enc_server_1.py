@@ -33,11 +33,9 @@ while True:
 
             # Evaluation et envoi du résultat
             conn.send(encode(f"{calc} = {res}"))
-            trash = conn.recv(1024)
-            print(trash.decode())
             
         except socket.error:
             print("Error Occured.")
             break
 
-conn.close()
+    conn.close()
