@@ -58,7 +58,19 @@ class Calculatrice_Server(Encodage):
         self.s.close()
 
     def calcul(self, calcul):
-        return eval(calcul)
+        try:    
+            return eval(calcul)
+        except ZeroDivisionError:
+            return "Division par zero impossible"
+        except SyntaxError:
+            return "Erreur de syntaxe"
+        except NameError:
+            return "Erreur de syntaxe"
+        except TypeError:
+            self.close_conn()
+            return "Erreur de syntaxe"
+        except OverflowError:
+            return "Erreur de syntaxe"
     
     def traitement_header(self):
         try :
