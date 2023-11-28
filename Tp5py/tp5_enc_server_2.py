@@ -29,9 +29,9 @@ class Calculatrice_Server(Encodage):
     
     def listen(self):
         a = 0
+        self.s.settimeout(5.0)
         while True :
             try :
-                self.s.settimeout(10)
                 self.s.listen(1)
                 self.conn, self.addr = self.s.accept()
                 print(f"Connexion de {self.addr}.")
@@ -39,7 +39,7 @@ class Calculatrice_Server(Encodage):
                 break
             except socket.timeout:
                 a += 1
-                if a == 2 : print("Aucun client depuis plus de 10 sec."); a = 0; 
+                if a == 12 : print("[WARM] Aucun client depuis plus une minute."); a = 0; 
     def send(self, msg):
         if type(msg) == str: self.conn.send(self.encode(msg))
         elif type(msg) == bytes: self.conn.send(msg)
@@ -79,11 +79,12 @@ class Calculatrice_Server(Encodage):
         return self.first_int, self.operator, self.second_int, self.calc
     
     def traitement_end(self):
+        self.s.settimeout(1.0)
         try :
             end = self.recv(1)
-            if end != b'\x00': self.send("Euuuu Erreur sur un octet"); self.close_conn(); return True;                 
-            if end == '':  self.send("Euuuu Erreur sur un octet"); self.close_conn(); return True
-            else : return False
+            if end != b'\x00': self.send("Euuuu Erreur sur un octet"); self.close_conn(); self.s.settimeout(None); return True             
+            if end == '':  self.send("Euuuu Erreur sur un octet"); self.close_conn(); self.s.settimeout(None); return True
+            else : self.s.settimeout(None); return False
         except socket.timeout:
             self.send("Euuuu Erreur sur un octet"); self.close_conn(); return True
             
