@@ -1,6 +1,7 @@
 import socket
+from envoi import Envoi
 
-class Calculatrice_Server():
+class Calculatrice_Server(Envoi):
     
     def __init__(self):
         self.resultat : int = 0
@@ -32,14 +33,6 @@ class Calculatrice_Server():
         self.conn, self.addr = self.s.accept()
         print(f"Connexion de {self.addr}.")
 
-    def send(self, msg):
-        if type(msg) == str: self.conn.send(self.encode(msg))
-        elif type(msg) == bytes: self.conn.send(msg)
-        elif type(msg) == int: self.conn.send(self.encode(msg))
-        else: self.conn.send(msg)
-
-    def recv(self, size) -> bytes:
-        return self.conn.recv(size)
     
     def close_conn(self):
         print(f"Connexion de {self.addr} fermée.")
@@ -106,8 +99,8 @@ if __name__ == "__main__":
             srv.send(f"{calc} = {res}")
             srv.close_conn()
             continue
-        except socket.error:
-            print("Error Occured.")
+        except socket.error as e:
+            print("Error Occured: ", e)
             srv.close_conn()
             break
     srv.close_s()
