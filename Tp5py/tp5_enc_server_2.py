@@ -79,14 +79,14 @@ class Calculatrice_Server(Encodage):
         return self.first_int, self.operator, self.second_int, self.calc
     
     def traitement_end(self):
-        self.s.settimeout(1.0)
+        self.s.settimeout(0.1)
         try :
             end = self.recv(1)
             if end != b'\x00': self.send("Euuuu Erreur sur un octet"); self.close_conn(); self.s.settimeout(None); return True             
             if end == '':  self.send("Euuuu Erreur sur un octet"); self.close_conn(); self.s.settimeout(None); return True
             else : self.s.settimeout(None); return False
         except socket.timeout:
-            self.send("Euuuu Erreur sur un octet"); self.close_conn(); return True
+            self.send("Euuuu Erreur sur un octet"); return True
             
     
     def traitement(self):
