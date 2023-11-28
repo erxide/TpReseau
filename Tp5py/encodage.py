@@ -1,7 +1,7 @@
 
 class Encodage:
     
-    def encode(donné):
+    def encode(self, donné):
         if type(donné) == str: return donné.encode()
         if type(donné) == int:
             nbr_octet = 1
@@ -12,8 +12,8 @@ class Encodage:
                     nbr_octet += 1
                     continue
     
-    def decode_int(donné):
+    def decode_int(self, donné):
         return int.from_bytes(donné, 'big')
     
-    def decode_str(donné):
+    def decode_str(self, donné):
         return donné.decode()

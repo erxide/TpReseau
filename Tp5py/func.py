@@ -1,4 +1,5 @@
 import re
+from encodage import Encodage as Enc
 
 
 def testregex(regex, string):
@@ -20,3 +21,6 @@ def decode(donné):
     if type(donné) == str: return donné.decode()
     elif type(donné) == int : return int.from_bytes(donné, 'big')
     else : return int.from_bytes(donné, 'big')
+
+
+    
