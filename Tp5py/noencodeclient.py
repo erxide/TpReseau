@@ -7,8 +7,8 @@ s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 try:
     s.connect((host, port))
-except socket.error:
-    print(socket.error)
+except socket.error as r:
+    print(r)
     exit(1)
 
 s.send(1000)
