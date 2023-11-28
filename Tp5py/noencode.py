@@ -1,6 +1,6 @@
 import socket
 
-host = "localhost"
+host = "127.0.0.1"
 port = 13337
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)

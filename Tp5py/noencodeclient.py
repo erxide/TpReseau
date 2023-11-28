@@ -7,10 +7,10 @@ s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 try:
     s.connect((host, port))
+    s.send(1000)
 except socket.error as r:
     print(r)
     exit(1)
 
-s.send(1000)
 
 s.close
