@@ -8,7 +8,7 @@ s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 try:
     s.connect((host, port))
-    msg = encode("Hello World")
+    msg = encode(2092004)
     len_msg = byte_len(msg)
     s.send(len_msg)
     s.send(msg)
