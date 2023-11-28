@@ -73,7 +73,7 @@ class Calculatrice_Server(Encodage):
     
     def traitement_end(self):
         end = self.recv(1)
-        if end != b'\x00': self.send(self.encode("Erreur occured")); return True
+        if end != b'\x00': return True
         return False
     
     def traitement(self):
