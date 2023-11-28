@@ -17,15 +17,15 @@ def byte_len(donné):
 def decode(donné):
     types = {'str': 0, 'int': 1, 'float': 2, 'bool': 3}
     if donné[0] == types['str']: return donné[1:].decode()
-    if donné[0] == types['int']: return int.from_bytes(donné[1:], 'big')
+    elif donné[0] == types['int']: return int.from_bytes(donné[1:], 'big')
     else : return int.from_bytes(donné, 'big')
 
 if __name__ == '__main__':
-    donné = 894651984654654987654987654976594965499654
-    m = encode(donné)
-    print(m)
-    print(decode(m))
+    donné = 'Hello World'
     print(byte_len(encode(donné)))
+    print(decode(byte_len(encode(donné))))
+    
+
 
 
 

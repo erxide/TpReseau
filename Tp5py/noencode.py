@@ -15,7 +15,7 @@ try :
     print(f"Connexion de {addr}.")
 
     len_msg = decode(conn.recv(1))
-    msg = conn.recv(decode(len_msg))
+    msg = conn.recv(int(decode(len_msg)))
     print(msg)
 except socket.error:
     print(socket.error)
