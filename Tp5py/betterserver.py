@@ -42,9 +42,11 @@ class Calculatrice:
         return self.conn.recv(size)
     
     def close_conn(self):
+        print(f"Connexion de {self.addr} fermée.")
         self.conn.close()
     
     def close_s(self):
+        print("Serveur fermé.")
         self.s.close()
 
     def calcul(self, calcul):
