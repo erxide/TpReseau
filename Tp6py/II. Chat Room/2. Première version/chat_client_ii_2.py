@@ -30,5 +30,6 @@ import socket
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.connect(("9.2.4.3", 13337))
 s.send("Hello".encode())
-print(s.recv(1024).decode())
+data = s.recv(1024).decode()
+print(data)
 s.close()

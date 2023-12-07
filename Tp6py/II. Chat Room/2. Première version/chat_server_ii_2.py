@@ -17,16 +17,16 @@ class ChatroomServer:
 
     def accept(self):
         while True:
-            client_socket, _ = self.server_socket.accept()
+            client_socket, clien_address = self.server_socket.accept()
             print(f"Client connected {client_socket}")
             self.client_socket = client_socket
 
             message = self.receive(1024)
             print(message)
 
-            self.client_address, self.client_port = self.client_socket.getpeername()
+            self.client_address, self.client_port = self.client_address
 
-            self.send(f"Hello {self.client_socket}")
+            self.send(f"Hello {self.client_address}")
             break
 
 
