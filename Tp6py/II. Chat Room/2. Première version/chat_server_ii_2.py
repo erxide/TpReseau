@@ -17,10 +17,8 @@ class ChatroomServer:
 
     def accept(self):
         while True:
-            client_socket, self.client_address = self.server_socket.accept()
-            print(f"Client connected {client_socket}")
-            self.client_socket = client_socket
-
+            self.client_socket, self.client_address = self.server_socket.accept()
+            print(f"Connection from {self.client_address} has been established")
             message = self.receive(1024)
             print(message)
 
