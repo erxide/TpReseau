@@ -26,7 +26,7 @@ class ChatroomServer:
 
             self.client_address, self.client_port = self.client_address
 
-            self.send(f"Hello {self.client_address}")
+            self.send(f"Hello {self.client_address + ':' + str(self.client_port)}")
             break
 
 
