@@ -13,21 +13,21 @@ class ChatroomServer:
         self.server_socket.bind((self.host, self.port))
         self.server_socket.listen(5)
         print("Server started")
-
-        while True:
-            self.accept()
+        self.accept()
 
     def accept(self):
-        client_socket, _ = self.server_socket.accept()
-        print(f"Client connected {client_socket}")
-        self.client_socket = client_socket
+        while True:
+            client_socket, _ = self.server_socket.accept()
+            print(f"Client connected {client_socket}")
+            self.client_socket = client_socket
 
-        message = self.receive(1024)
-        print(message)
+            message = self.receive(1024)
+            print(message)
 
-        self.client_address, self.client_port = self.client_socket.getpeername()
+            self.client_address, self.client_port = self.client_socket.getpeername()
 
-        self.send(f"Hello {self.client_socket}")
+            self.send(f"Hello {self.client_socket}")
+            break
 
 
     def send(self, message):
