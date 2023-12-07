@@ -37,6 +37,7 @@ class Calculatrice_Server(Encodage):
                 self.s.listen(1)
                 self.conn, self.addr = self.s.accept()
                 print(f"Connexion de {self.addr}.")
+                self.connisup = True
                 self.s.settimeout(None)
                 break
             except socket.timeout:
@@ -53,6 +54,7 @@ class Calculatrice_Server(Encodage):
     
     def close_conn(self):
         print(f"Connexion de {self.addr} fermée.")
+        self.connisup = False
         self.conn.close()
     
     def close_s(self):
@@ -70,7 +72,6 @@ class Calculatrice_Server(Encodage):
             return "Erreur de syntaxe"
         except TypeError:
             self.close_conn()
-            self.connisup = False
             return "Erreur de syntaxe"
         except OverflowError:
             return "Erreur de syntaxe"
@@ -114,20 +115,16 @@ if __name__ == "__main__":
     srv.bind('9.2.4.3', 13337)
     while srv.is_connected():
         srv.listen()
-        srv.connisup = True
         srv.send("Bienvenue sur la calculatrice !\n".encode())
-        while srv.connisup:
-            try:
-                calc = srv.traitement()
-                res = srv.calcul(calc)
-                srv.send(f"{calc} = {res}")
-                srv.close_conn()
-                srv.connisup = False
-                continue
-            except socket.error as e:
-                print("Error Occured: ", e)
-                srv.send("Error Occured : ", e)
-                continue
-        print("Client déconnecté.")
-    srv.close_s()
+        try:
+            calc = srv.traitement()
+            res = srv.calcul(calc)
+            srv.send(f"{calc} = {res}")
+            srv.close_conn()
+            continue
+        except socket.error as e:
+            print("Error Occured: ", e)
+            srv.send("Error Occured : ", e)
+            continue
+srv.close_s()
 
