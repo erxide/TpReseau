@@ -1,32 +1,51 @@
 import socket
-import asyncio
 
-def handle_client(client_socket):
-    print(f"Client connected {client_socket}")
-    message = receive(client_socket, 1024)
-    print(message)
-    send(client_socket, f"Hello {client_socket}")
-    close_client(client_socket)
+class ChatroomServer:
+    def __init__(self, host="9.2.4.3", port=13337):
+        self.host = host
+        self.port = port
+        self.server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.client_socket = None
+        self.client_address = None
+        self.client_port = None
 
-def send(client_socket, message):
-    client_socket.send(message.encode())
+    def start(self):
+        self.server_socket.bind((self.host, self.port))
+        self.server_socket.listen(5)
+        print("Server started")
 
-def receive(client_socket, bits=1024):
-    return client_socket.recv(bits).decode()
+        while True:
+            self.accept()
 
-def close_client(client_socket):
-    client_socket.close()
-    print("Client connection closed")
+    def accept(self):
+        client_socket, _ = self.server_socket.accept()
+        print(f"Client connected {client_socket}")
+        self.client_socket = client_socket
 
-async def start_server(host="9.2.4.3", port=13337):
-    server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    server.bind((host, port))
-    server.listen(5)
-    print("Server started")
+        message = self.receive(1024)
+        print(message)
 
-    while True:
-        client_socket, _ = server.accept()
-        asyncio.create_task(handle_client(client_socket))
+        self.client_address, self.client_port = self.client_socket.getpeername()
+
+        self.send(f"Hello {self.client_socket}")
+
+
+    def send(self, message):
+        self.client_socket.send(message.encode())
+
+    def receive(self, bits=1024):
+        return self.client_socket.recv(bits).decode()
+
+    def close_client(self):
+        self.client_socket.close()
+        print("Client connection closed")
+
+    def close(self):
+        self.server_socket.close()
+        print("Server closed")
+
 
 if __name__ == "__main__":
-    asyncio.run(start_server())
+    server = ChatroomServer()
+    server.start()
+    server.close()
