@@ -17,7 +17,7 @@ class ChatroomServer:
 
     def accept(self):
         while True:
-            client_socket, clien_address = self.server_socket.accept()
+            client_socket, self.client_address = self.server_socket.accept()
             print(f"Client connected {client_socket}")
             self.client_socket = client_socket
 
