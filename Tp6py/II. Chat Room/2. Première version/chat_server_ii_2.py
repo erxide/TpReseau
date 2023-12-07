@@ -1,42 +1,32 @@
 import socket
 import asyncio
 
-class ChatroomServer :
-    def __init__(self, host: str = "9.2.4.3", port : int = 13337):
-        self.host = host
-        self.port = port
-        self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM) 
-        self.client_socket = None
+def handle_client(client_socket):
+    print(f"Client connected {client_socket}")
+    message = receive(client_socket, 1024)
+    print(message)
+    send(client_socket, f"Hello {client_socket}")
+    close_client(client_socket)
 
-    def start(self):
-        asyncio.start_server(self.accept, self.host, self.port)
-        self.socket.listen(5)
-        print("Server started")
+def send(client_socket, message):
+    client_socket.send(message.encode())
 
-    def accept(self):
-        self.client_socket, self.client_socket = self.socket.accept()
-        print(f"Client connected {self.client_socket}")
-        print(self.receive(1024))
-        self.send(f"Hello {self.client_socket}")
+def receive(client_socket, bits=1024):
+    return client_socket.recv(bits).decode()
 
+def close_client(client_socket):
+    client_socket.close()
+    print("Client connection closed")
 
-    def send(self, message: str):
-        self.client_socket.send(message.encode())
+async def start_server(host="9.2.4.3", port=13337):
+    server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    server.bind((host, port))
+    server.listen(5)
+    print("Server started")
 
-    def receive(self, bits: int = 1024):
-        return self.client_socket.recv(bits).decode()
-    
-    def close(self):
-        self.socket.close()
-        print("Connection closed")
-
-    def close_client(self):
-        self.client_socket.close()
-        print("Client connection closed")
+    while True:
+        client_socket, _ = server.accept()
+        asyncio.create_task(handle_client(client_socket))
 
 if __name__ == "__main__":
-    server = ChatroomServer()
-    server.start()
-    server.accept()
-    server.close_client()
-    server.close()
+    asyncio.run(start_server())
