@@ -1,39 +1,35 @@
-import socket
+import asyncio
 
-def handle_client(client_socket):
-    client_address = client_socket.getpeername()
-    print(f"Client connecté: {client_address}")
+class ChatroomServer:
+    def __init__(self, host : str = "9.2.4.3", port : int = 13337):
+        self.host = host
+        self.port = port
 
-    data = client_socket.recv(1024)
-    message = data.decode()
-    print(f"Message reçu du client {client_address}: {message}")
+    async def handle_client(self, reader, writer):
+        client_address = writer.get_extra_info('peername')
+        print(f"Client connecté: {client_address}")
 
-    response_message = f"Hello {client_address[0]}:{client_address[1]}"
-    client_socket.send(response_message.encode())
+        data = await reader.read(1024)
+        message = data.decode()
+        print(f"Message reçu du client {client_address}: {message}")
 
-    print(f"Fermeture de la connexion avec le client {client_address}")
-    client_socket.close()
+        response_message = f"Hello {client_address[0]}:{client_address[1]}"
+        writer.write(response_message.encode())
+        await writer.drain()
 
-def main():
-    server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        print(f"Fermeture de la connexion avec le client {client_address}")
+        writer.close()
 
-    server_address = ("9.2.4.3", 13337)
-    server_socket.bind(server_address)
+    async def start(self):
+        server = await asyncio.start_server(
+            self.handle_client, self.host, self.port)
 
-    server_socket.listen(5)
-    print(f"Serveur en écoute sur {server_address}")
+        address = server.sockets[0].getsockname()
+        print(f"Serveur en écoute sur {address}")
 
-    try:
-        while True:
-            client_socket, client_address = server_socket.accept()
-
-            handle_client(client_socket)
-
-    except KeyboardInterrupt:
-        print("Arrêt du serveur.")
-
-    finally:
-        server_socket.close()
+        async with server:
+            await server.serve_forever()
 
 if __name__ == "__main__":
-    main()
+    async_server = ChatroomServer()
+    asyncio.run(async_server.start())
