@@ -17,7 +17,7 @@ def handle_client(client_socket):
 def main():
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-    server_address = ("9.3.4.3", 13337)
+    server_address = ("9.2.4.3", 13337)
     server_socket.bind(server_address)
 
     server_socket.listen(5)
