@@ -1,47 +1,52 @@
 import asyncio
-import aioconsole
+from aioconsole import ainput
 
-class ChatroomClient : 
-    def __init__(self, host: str = "9.2.4.3", port : int = 13337):
+class ChatroomClient:
+    def __init__(self, host: str = "9.2.4.3", port: int = 13337):
         self.host = host
         self.port = port
         self.reader = None
         self.writer = None
-        
-    def connect(self):
-        self.reader, self.writer = asyncio.open_connection(self.host, self.port)
+
+    async def connect(self):
+        self.reader, self.writer = await asyncio.open_connection(host=self.host, port=self.port)
         print("Connected to server")
         self.send("Hello")
 
-    async def send(self, message: str):
+    def send(self, message: str):
         self.writer.write(message.encode())
-        await self.writer.drain()
 
-    async def receive(self):
-        return await self.reader.read(1024)
-    
+    async def input_loop(self):
+        while True:
+            user_input = await ainput("Your message: ")
+            self.send(user_input)
+
+    async def receive_loop(self):
+        while True:
+            data = await self.reader.read(1024)
+            if not data:
+                break
+            print(f"Received: {data.decode()}")
+
     def close(self):
-        self.socket.close()
+        if self.writer:
+            self.writer.close()
         print("Connection closed")
 
-    async def input(self):
-        while True:
-            input_user = await aioconsole.ainput("Message : ")
-            await self.send(input_user)
+async def main():
+    client = ChatroomClient()
 
-    async def async_receive(self):
-        while True:
-            print((await self.receive()).decode())
+    try:
+        await client.connect()
 
+        input_task = asyncio.ensure_future(client.input_loop())
+        receive_task = asyncio.ensure_future(client.receive_loop())
 
-    async def main(self):
-        client = ChatroomClient()
-        client.connect()
-        print(client.receive())
-        await asyncio.gather(client.input(), client.async_receive())
+        await asyncio.gather(input_task, receive_task)
+    except KeyboardInterrupt:
+        pass
+    finally:
         client.close()
 
-
 if __name__ == "__main__":
-    client = ChatroomClient()
-    asyncio.run(client.main())
+    asyncio.run(main())
