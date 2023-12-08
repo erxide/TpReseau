@@ -1,49 +1,39 @@
 import socket
 
-class ChatroomServer:
-    def __init__(self, host="9.2.4.3", port=13337):
-        self.host = host
-        self.port = port
-        self.server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.client_socket = None
-        self.client_address = None
-        self.client_port = None
+def handle_client(client_socket):
+    client_address = client_socket.getpeername()
+    print(f"Client connecté: {client_address}")
 
-    def start(self):
-        self.server_socket.bind((self.host, self.port))
-        self.server_socket.listen(5)
-        print("Server started")
-        self.accept()
+    data = client_socket.recv(1024)
+    message = data.decode()
+    print(f"Message reçu du client {client_address}: {message}")
 
-    def accept(self):
+    response_message = f"Hello {client_address[0]}:{client_address[1]}"
+    client_socket.send(response_message.encode())
+
+    print(f"Fermeture de la connexion avec le client {client_address}")
+    client_socket.close()
+
+def main():
+    server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+    server_address = ('127.0.0.1', 8888)
+    server_socket.bind(server_address)
+
+    server_socket.listen(5)
+    print(f"Serveur en écoute sur {server_address}")
+
+    try:
         while True:
-            self.client_socket, self.client_address = self.server_socket.accept()
-            print(f"Connection from {self.client_address} has been established")
-            message = self.receive(1024)
-            print(message)
+            client_socket, client_address = server_socket.accept()
 
-            self.client_address, self.client_port = self.client_address
+            handle_client(client_socket)
 
-            self.send(f"Hello {self.client_address + ':' + str(self.client_port)}")
-            break
+    except KeyboardInterrupt:
+        print("Arrêt du serveur.")
 
-
-    def send(self, message):
-        self.client_socket.send(message.encode())
-
-    def receive(self, bits=1024):
-        return self.client_socket.recv(bits).decode()
-
-    def close_client(self):
-        self.client_socket.close()
-        print("Client connection closed")
-
-    def close(self):
-        self.server_socket.close()
-        print("Server closed")
-
+    finally:
+        server_socket.close()
 
 if __name__ == "__main__":
-    server = ChatroomServer()
-    server.start()
-    server.close()
+    main()
