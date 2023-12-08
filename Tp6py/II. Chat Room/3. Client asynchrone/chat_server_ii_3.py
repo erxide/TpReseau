@@ -17,7 +17,6 @@ class ChatroomServer:
         await writer.drain()
 
         print(f"Fermeture de la connexion avec {client_address}")
-        writer.close()
 
     async def start(self):
         server = await asyncio.start_server(

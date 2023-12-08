@@ -39,10 +39,7 @@ async def main():
     try:
         await client.connect()
 
-        input_task = asyncio.ensure_future(client.input_loop())
-        receive_task = asyncio.ensure_future(client.receive_loop())
-
-        await asyncio.gather(input_task, receive_task)
+        await asyncio.gather(client.input_loop(), client.receive_loop())
     except KeyboardInterrupt:
         pass
     finally:
